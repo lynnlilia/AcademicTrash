@@ -1,18 +1,24 @@
 const { test, expect } = require('@playwright/test');
 
 test('has nothing but title', async ({ page }) => {
-  await page.goto('https://gadero-prod.vercel.app/winkelwagen/');
-  await page.locator('container mx-auto pb-12 sm:pb-24',{ hasText :'Je winkelwagen is leeg'});
-
-  
+  await page.goto('https://gadero.vercel.app/winkelwagen/');
+  await page.waitForTimeout(2000)
+  await page.fill("input[name= '_vercel_password']","gadero2023")
+  await page.waitForTimeout(2000)
+  await page.getByRole('button', { hasText: 'Log in' }).click();
+  await page.waitForTimeout(2000)
+  await page.getByText('Je winkelwagen is leeg');
+  //await page.locator('container mx-auto pb-12 sm:pb-24',{ hasText :'Je winkelwagen is leeg'}); 
   });
   
 test('shopping', async ({page})=>{
-  await page.goto('https://gadero-prod.vercel.app/schuttingdeur-geimpregneerd-in-stalen-frame-130-x-195-cm-met-rvs-inbouwcilinderslot-en-ophangogen/');
-  await page.getByRole('button', { name: 'Close' }).click();
-  await page.getByLabel('Schuttingdeur geïmpregneerd in stalen frame 130 x 195 cm met RVS inbouwcilinderslot en ophangogen-2 counter')
+  await page.goto('https://gadero.vercel.app/schuttingdeur-geimpregneerd-in-stalen-frame-130-x-195-cm-met-rvs-inbouwcilinderslot-en-ophangogen/');
+  //await page.getByRole('button', { name: 'Close' }).click();
+  await page.fill("input[name= '_vercel_password']","gadero2023")
+  await page.getByRole('button', { hasText: 'Log in' }).click();
+  await page.getByLabel('Schuttingdeur geïmpregneerd in stalen frame 130 x 195 cm met RVS inbouwcilinderslot en ophangogen-1 counter')
   .fill('5');
-  await page.getByLabel('Schuttingdeur geïmpregneerd in stalen frame 130 x 195 cm met RVS inbouwcilinderslot en ophangogen-4 counter')
+  await page.getByLabel('Schuttingdeur geïmpregneerd in stalen frame 130 x 195 cm met RVS inbouwcilinderslot en ophangogen-6 counter')
   .fill('3');
   await page.getByRole('button', { name: 'Voeg toe aan mijn winkelwagen' }).click();
   //await page.getByRole('button', { name: 'sluiten' }).click()
@@ -30,5 +36,3 @@ test('shopping', async ({page})=>{
   await page.getByRole('button', { name: 'Ga naar de volgende stap' }).click();
 })
  
-
-  
